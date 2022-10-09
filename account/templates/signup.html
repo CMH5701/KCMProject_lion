@@ -1,12 +1,61 @@
 
 {% block container %}
+<style>
+    body{
+        background:#f1f1f1;
+    }
+    h1{
+        text-align:center;
+        color:green;
+    }
+    hr{
+        color:gray;
+        width:30%;
+    }
+    div{
+        margin:5% auto;
+        justify-content:center;
+        flex-direction:column;
+        align-items:center;
+        display:flex;
+    }
+    div form{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+    }
+    .helptext{
+        color:red;
+    }
+    div label{
+        display:block;
+    }
+    div input{
+        border:1px solid #f1f1f1;
+        height:40px;
+        display:block;
+        width:70%;
+    }
+    label{
+        align-items:center;
+    }
+    #submit{
+        width:70%;
+        background:green;
+        color:white;
+    }
 
-<h1>회원 가입</h1>
+</style>
 
+<h1>CMH</h1>
+<hr>
+<div>
 <form method="POST">
     {% csrf_token %}
     {{ signup_form }}
-    <input type="submit" name="Submit"/>
+    <input type="submit" name="Submit" id = "submit" value = "가입하기"/>
 </form>
+</div>
 
 {% endblock %}
