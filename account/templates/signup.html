@@ -4,6 +4,18 @@
     body{
         background:#f1f1f1;
     }
+    .hide{
+        display:none;
+    }
+    .failure_message,.mismatch_message{
+        color:red;
+    }
+    .success_message,.match_message{
+        color:blue;
+    }
+    .style0,.style1{
+        color:gray;
+    }
     h1{
         text-align:center;
         color:green;
@@ -47,6 +59,8 @@
     }
 
 </style>
+<script type="text/javascript" src="/static/js/main.js"></script>
+
 
 <h1>CMH</h1>
 <hr>
@@ -54,6 +68,10 @@
 <form method="POST">
     {% csrf_token %}
     {{ signup_form }}
+    <div class = "failure_message hide">아이디는 네 글자 이상이여야 합니다</div>
+    <div class = "success_message hide">사용할 수 있는 아이디 입니다</div>
+    <div class = "mismatch_message hide">두 비밀번호가 일치하지 않습니다</div>
+    <div class = "match_message hide">두 비밀번호가 일치합니다</div>
     <input type="submit" name="Submit" id = "submit" value = "가입하기"/>
 </form>
 </div>
