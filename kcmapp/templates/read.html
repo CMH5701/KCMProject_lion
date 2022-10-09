@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 목록</title>
+</head>
+<body>
+    <h2>Read</h2>
+    <form  method= "POST">
+        
+        {% for cashbooks in cashbooks.all %}
+       
+        <h3>제목: <a href = "{% url 'detail' cashbooks.id %}"> {{cashbooks.title}}</a></h3>
+        작성자:{{ cashbooks.user.username}}
+        작성일: {{cashbooks.pub_date}}<br>
+        작성내용: {{cashbooks.content}}<br>
+        {% if cashbooks.image %}
+        <image src = "{{cashbooks.image.url}}" width = "250" height = "250" alt = image>  
+        {% endif %}
+        
+        {% endfor %}
+        {% if form.user.profile.image %}
+        <img src="{{ post.user.profile.image.url }}" width="25" alt="">
+        {% endif %}
+    </form>
+</body>
+</html>

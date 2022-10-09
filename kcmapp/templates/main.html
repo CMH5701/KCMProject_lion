@@ -1,0 +1,132 @@
+{% load static %}
+<html>
+    <head>
+        <link rel = "stylesheet" href = "{% static 'css/main.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    </head>
+        <body style="height:100vh;">
+
+        <div class = "header">
+
+                <h1>😀꿀조합 레시피</h1>
+                <ul>
+                    <li>Food</li> <!--전체 목록-->
+                    <li>Fruit</li> <!--글 중 과일?에 대한 목록-->
+                    <li>Drink</li> <!--글 전체 중 음료수에 대한 목록-->
+                    <li>Write</li> <!--글 작성 페이지-->
+                    <li>Login></li> <!--로그인 페이지-->
+                </ul>
+{% if user.is_authenticated %}
+<h3> {{ user.username }}님 환영합니다.</h3>
+<a href="{% url 'write' %}">글 쓰기</a>
+<a href="{% url 'logout' %}">로그아웃</a>
+<span> <a href="{% url 'people' user.username %}">{{user.username }}의 페이지</a></span>
+{% else %}
+<a href="{% url 'signup' %}">회원가입</a>
+<a href="{% url 'login' %}">로그인</a>
+{% endif %}
+            </div>
+          
+
+            <div class = "main" style = "overflow:hidden;position:absolute;margin-top:2%;width:100%;">
+
+                <div class = "main_content" style = "overflow:hidden">
+                     <div class = "inner">
+                        <img src = "{% static 'img/main_1.jpg' %}">
+                     </div>
+
+                     <div class = "inner">
+                        <img src = "{% static 'img/main_2.jpg' %}">
+                     </div>
+                     <div class = "inner">
+                        <img src = "{% static 'img/main_3.jpg' %}">
+                     </div>
+
+                    <div class = "inner">
+                        <img src = "{% static 'img/main_4.png' %}">
+                    </div>
+                     <div class = "inner">
+                        <img src = "{% static 'img/main_5.jpg' %}">
+                    </div>
+
+                </div>
+
+                <div class = "buttons">
+                    <button class = "but1">1</button>
+                    <span></span>
+                    <button class = "but2">2</button>
+                     <span></span>
+                    <button class = "but3">3</button>
+                    <button class = "but4">4</button>
+                    <button class = "but5">5</button>
+                    </div>
+            </div>
+
+         <div class="side_content">
+                    <a href="{% url 'read' %}">글 목록 </a>
+                    <!--<a href="{% url 'write' %}">글 작성하기</a>글 작성 페이지 로그인 상태에서만 가능 표시해도 상관은 x-->
+                    <a href= "#github_link">푸터</a>
+                </div>
+
+
+
+
+            <div class = "footer" style="margin-top:5%;">
+                <div class = "footer-content">
+                <a href = "https://github.com/khj0426/KCMProject" target = "_blank" id = "github_link">
+                <img src = "{% static 'img/github.png' %}" style="margin-right:5px;">
+                </a>
+                  멋쟁이사자처럼 10기 최명환 & 김효중
+            </div>
+            </div>
+        
+        </body>
+        <script>
+         document.querySelector('.but5').addEventListener('click',function(){
+                document.querySelector('.main_content').style.transform = 'translate(-320vw)';
+                document.querySelector('.but5').style.background = '#EDDFB3';
+                document.querySelector('.but4').style.background = '#CA955C';
+                 document.querySelector('.but3').style.background = '#CA955C';
+                 document.querySelector('.but1').style.background = '#CA955C';
+                 document.querySelector('.but2').style.background = '#CA955C';
+            });
+         document.querySelector('.but4').addEventListener('click',function(){
+                document.querySelector('.main_content').style.transform = 'translate(-240vw)';
+                document.querySelector('.but4').style.background = '#EDDFB3';
+                 document.querySelector('.but3').style.background = '#CA955C';
+                 document.querySelector('.but1').style.background = '#CA955C';
+                 document.querySelector('.but2').style.background = '#CA955C';
+                 document.querySelector('.but5').style.background = '#CA955C';
+            });
+
+            document.querySelector('.but2').addEventListener('click',function(){
+                document.querySelector('.main_content').style.transform = 'translate(-80vw)';
+                document.querySelector('.but2').style.background = '#EDDFB3';
+                 document.querySelector('.but3').style.background = '#CA955C';
+                 document.querySelector('.but1').style.background = '#CA955C';
+                  document.querySelector('.but4').style.background = '#CA955C';
+                  document.querySelector('.but5').style.background = '#CA955C';
+            });
+
+            document.querySelector('.but3').addEventListener('click',function(){
+                document.querySelector('.main_content').style.transform = 'translate(-160vw)';
+                document.querySelector('.but3').style.background = '#EDDFB3';
+                 document.querySelector('.but2').style.background = '#CA955C';
+                 document.querySelector('.but1').style.background = '#CA955C';
+                 document.querySelector('.but4').style.background = '#CA955C';
+                 document.querySelector('.but5').style.background = '#CA955C';
+            });
+
+            document.querySelector('.but1').addEventListener('click',function(){
+                document.querySelector('.main_content').style.transform = 'translate(0vw)';
+                 document.querySelector('.but1').style.background = '#EDDFB3';
+                 document.querySelector('.but3').style.background = '#CA955C';
+                 document.querySelector('.but2').style.background = '#CA955C';
+                 document.querySelector('.but4').style.background = '#CA955C';
+                 document.querySelector('.but5').style.background = '#CA955C';
+            });
+        </script>
+        
+
+</html>

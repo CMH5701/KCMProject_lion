@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 구경하기</title>
+</head>
+<body>
+    <form  method= "POST">
+        <p>제목: {{cashbooks.title}}</p>
+        <p>작성일: {{cashbooks.pub_date}}</p>
+        <p>지출내역:{{cashbooks.content}}</p>
+        {% if cashbooks.image %}
+         <image src = "{{cashbooks.image.url}}" width = "250" height = "250"
+         alt = image>  <br>
+         {% endif %}              
+       
+    </form>
+    {% if cashbooks.user == user %} <!--글을 작성한 작성자일 경우만 수정 및 삭제 가능-->
+    <a href="{% url 'edit' cashbooks.id %}" class="btn btn-info">Update</a>
+    <a href="{% url 'delete' cashbooks.id %}" class="btn btn-primary">Delete</a>
+    {% endif %}
+</body>
+</html>
