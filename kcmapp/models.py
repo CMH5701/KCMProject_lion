@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.contrib.auth.models import User
 # Create your models here.
 class Cashbook(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -20,4 +21,11 @@ class Cashbook(models.Model):
             raise ValidationError("글을 작성해주세요.")
         return super(Cashbook, self).clean()
     
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Cashbook, on_delete=models.CASCADE)
+    content = models.TextField()
+    
+    def __str__ (self) :
+        return self.content
 

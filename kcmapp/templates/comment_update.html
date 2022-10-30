@@ -1,0 +1,9 @@
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ comment_form.as_table}}
+
+    <input type="submit", value="댓글수정">
+
+</form>

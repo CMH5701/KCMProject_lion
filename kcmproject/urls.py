@@ -36,4 +36,7 @@ urlpatterns = [
     path('people/<str:username>/', account.views.people, name='people'),
     path('password/', account.views.password, name='password'),
     path('profile/', account.views.profile_edit, name='profile_edit'),
+    path('<int:cashbooks_id>/comments/write/', kcmapp.views.comment_write, name='comment_write'),
+    path('<int:cashbooks_id>/comment/<int:comment_id>/update/', kcmapp.views.comment_update, name="comment_update"),
+    path('<int:cashbooks_id>/comments/<int:comment_id>/delete/', kcmapp.views.comment_delete, name="comment_delete"),  
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
