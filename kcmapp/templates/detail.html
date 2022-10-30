@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글 구경하기</title>
+    <style>
+    span{
+      color:blue;
+    }
+    </style>
 </head>
 <body>
     <form  method= "POST">
@@ -17,9 +23,37 @@
          {% endif %}              
        
     </form>
+
     {% if cashbooks.user == user %} <!--글을 작성한 작성자일 경우만 수정 및 삭제 가능-->
     <a href="{% url 'edit' cashbooks.id %}" class="btn btn-info">Update</a>
     <a href="{% url 'delete' cashbooks.id %}" class="btn btn-primary">Delete</a>
     {% endif %}
+<hr>
+<h2>댓글 목록</h2>
+<!-- cashbooks에 담긴 object 다 출력하고 , 없다면 댓글이 없습니다 출력 -->
+    <div>
+      {% for comment in cashbooks.comment_set.all %}
+        <div>
+          <span> {{ comment.user.username }}의 댓글 : </span>  {{ comment.content }}
+          {% if comment.user == user %}
+          <a href="{% url 'comment_update' cashbooks.id comment.id %}">댓글 수정</a>
+          <a href="{% url 'comment_delete' cashbooks.id comment.id %}">댓글 삭제</a>
+          {% endif %}
+        </div>
+      {% empty %}
+        <div>댓글이 없습니다.</div>
+      {% endfor %}
+  </div>
+  <hr>
+  <!--여기서 부터 댓글입력form -->
+  {% if user.is_authenticated %}
+  <form action="{% url 'comment_write' cashbooks.id %}" method="POST">
+     {% csrf_token %}
+     {{ comment_form.as_table }}
+     <input type="submit" value="Submit"/>
+  </form>
+  {% endif %}
+  
+    
 </body>
 </html>

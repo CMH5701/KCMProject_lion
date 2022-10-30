@@ -1,6 +1,6 @@
 from dataclasses import fields
 from django import forms 
-from .models import Cashbook
+from .models import Cashbook , Comment
 from django.forms import ModelForm, TextInput, EmailInput, NumberInput #나머지는 폼 더 커스텀 할 때 쓰자리..
 
 class CashbookForm(forms.ModelForm):
@@ -27,11 +27,10 @@ class CashbookForm(forms.ModelForm):
 class CashbookeditForm(forms.ModelForm): 
     class Meta:
         model = Cashbook
-        fields = ['title' , 'content' ,'name' ,'email' ,'image']
+        fields = ['title' , 'content' ,'email' ,'image']
         labels = {
             'title' : '제목' ,
             'content' : '할말하않',
-            'name' : '이름',
             'email' : '이메일 주소',
             'image' : '이미지'
         }
@@ -45,3 +44,12 @@ class CashbookeditForm(forms.ModelForm):
     def init(self, args, **kwargs):
         super(CashbookeditForm, self).init(args, **kwargs)
         self.fields['title'].required = False
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.TextInput(attrs={'placeholder':'댓글을 입력하세요'})
+        }
