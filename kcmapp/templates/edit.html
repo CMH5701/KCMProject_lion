@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,15 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>우리의 이야기 만들긔</title>
-    <style>
-div{
-    float:right;
-}
-    </style>
-
+    <link rel = "stylesheet" href = "{% static 'css/detail.css' %}" type = "text/css">
 </head>
 <body>
-    <h2>나의 글 수정하긔</h2>
+    <button id = "modal-active">게시글수정</button>
+    <div id = "modal-notice" class = "modal-background active">
+        <div class = "modal-editpage">
+            <a class = "btn-close" id = "modal-close">X</a>
     <form  method= "POST" enctype = "multipart/form-data">
         {% csrf_token %}
         <table>
@@ -22,7 +21,11 @@ div{
             <div><image src = "{{cashbook.image.url}}" width = "250" height = "250" alt = "이미지" >  </div>
             {% endif %}
         </table>
-        <button type="subimit">작성</button>
+        <button type="subimit" class = "btn-submit">작성</button>
     </form>
+    </div>
+    </div>
+<script src = "{% static 'js/detail.js' %}"></script>
+
 </body>
 </html>

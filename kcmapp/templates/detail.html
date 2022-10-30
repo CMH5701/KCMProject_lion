@@ -16,7 +16,7 @@
     <form  method= "POST">
         <p>제목: {{cashbooks.title}}</p>
         <p>작성일: {{cashbooks.pub_date}}</p>
-        <p>지출내역:{{cashbooks.content}}</p>
+        <p>내용:{{cashbooks.content}}</p>
         {% if cashbooks.image %}
          <image src = "{{cashbooks.image.url}}" width = "250" height = "250"
          alt = image>  <br>
