@@ -39,4 +39,8 @@ urlpatterns = [
     path('<int:cashbooks_id>/comments/write/', kcmapp.views.comment_write, name='comment_write'),
     path('<int:cashbooks_id>/comment/<int:comment_id>/update/', kcmapp.views.comment_update, name="comment_update"),
     path('<int:cashbooks_id>/comments/<int:comment_id>/delete/', kcmapp.views.comment_delete, name="comment_delete"),  
+    path('hashtag/', kcmapp.views.hashtag, name = 'hashtag'),
+    path('hashtag_list/', kcmapp.views.hashtag_list, name = 'hashtag_list'),
+    path('hashtag_add/', kcmapp.views.hashtag_add, name = 'hashtag_add'),
+
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

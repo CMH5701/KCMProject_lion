@@ -1,0 +1,13 @@
+<h2>해시태그 페이지</h2>
+
+{{ error_message }}
+
+<form method="POST">
+    {% csrf_token %} 
+   <div>
+        {{form.as_p}}
+   </div>
+    <button type="submit">해시태그 추가하기</button>
+</form>
+
+<a href="{% url 'hashtag_list' %}">해시태그 목록</a>

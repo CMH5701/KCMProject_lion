@@ -1,12 +1,12 @@
 from dataclasses import fields
 from django import forms 
-from .models import Cashbook , Comment
+from .models import Cashbook , Comment, Hashtag
 from django.forms import ModelForm, TextInput, EmailInput, NumberInput #나머지는 폼 더 커스텀 할 때 쓰자리..
 
 class CashbookForm(forms.ModelForm):
     class Meta:
         model = Cashbook
-        fields = ['title' , 'content' ,'name' ,'email' ,'image']
+        fields = ['title' , 'content' ,'name' ,'email' ,'image','hashtags']
         labels = {
             'title' : '제목' ,
             'content' : '할말하않',
@@ -27,7 +27,7 @@ class CashbookForm(forms.ModelForm):
 class CashbookeditForm(forms.ModelForm): 
     class Meta:
         model = Cashbook
-        fields = ['title' , 'content' ,'email' ,'image']
+        fields = ['title' , 'content' ,'email' ,'image','hashtags']
         labels = {
             'title' : '제목' ,
             'content' : '할말하않',
@@ -53,3 +53,8 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content': forms.TextInput(attrs={'placeholder':'댓글을 입력하세요'})
         }
+
+class HashtagForm(forms.ModelForm):
+    class Meta:
+        model = Hashtag
+        fields = ['name']
