@@ -66,9 +66,10 @@ def edit(request,id) :
     if request.method == 'POST':
         form = CashbookeditForm(request.POST ,request.FILES,instance= cashbook )
         if form.is_valid():
-            form = form.save(commit=False)
-            form.pub_date = timezone.now() 
-            form.save()
+            cashbook = form.save(commit=False)
+            cashbook.pub_date = timezone.now() 
+            cashbook.save()
+            form.save_m2m()
             return redirect('read')
     else:
         form = CashbookeditForm(instance= cashbook)
