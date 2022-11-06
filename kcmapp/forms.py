@@ -12,7 +12,8 @@ class CashbookForm(forms.ModelForm):
             'content' : '할말하않',
             'name' : '이름',
             'email' : '이메일 주소',
-            'image' : '이미지'
+            'image' : '이미지',
+            'hashtags':'해시태그'
         }
         widgets = {
             'email' : EmailInput(attrs={
@@ -32,7 +33,8 @@ class CashbookeditForm(forms.ModelForm):
             'title' : '제목' ,
             'content' : '할말하않',
             'email' : '이메일 주소',
-            'image' : '이미지'
+            'image' : '이미지',
+            'hashtags':'해시태그'
         }
         widgets = {
             'email' : EmailInput(attrs={
