@@ -1,0 +1,15 @@
+{% block content %}
+
+      <div>{{ keyword }}와(과) 관련된 게시물 {{ cashbook.count }}개</div>
+      <hr>
+      <div>
+        {% for cashbook in cashbook.all %}
+        <h3> 제목 : <a href="{% url 'detail' cashbook.id %}">{{cashbook.title}} </a></h3>
+        작성내용: {{cashbook.content}}<br>
+        {% if cashbook.image %}
+        <image src = "{{cashbook.image.url}}" width = "250" height = "250" alt = 사진>  
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}

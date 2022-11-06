@@ -16,12 +16,16 @@
     <form  method= "POST">
         <p>제목: {{cashbooks.title}}</p>
         <p>작성일: {{cashbooks.pub_date}}</p>
-        <p>내용:{{cashbooks.content}}</p>
+        <p>작성내용:{{cashbooks.content}}</p>
         {% if cashbooks.image %}
          <image src = "{{cashbooks.image.url}}" width = "250" height = "250"
          alt = image>  <br>
          {% endif %}              
-       
+         {% for hashtag in hashtag.all %}
+  <div>
+      #{{ hashtag.name }}
+  </div>
+  {% endfor %}
     </form>
 
     {% if cashbooks.user == user %} <!--글을 작성한 작성자일 경우만 수정 및 삭제 가능-->
@@ -53,7 +57,8 @@
      <input type="submit" value="Submit"/>
   </form>
   {% endif %}
-  
+
+ 
     
 </body>
 </html>
