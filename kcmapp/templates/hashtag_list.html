@@ -1,8 +1,43 @@
-<h1> 해시태그 목록 </h1>
+hasttag list
+<head>
+  <style>
+    .Set_Heart{
+        display:flex;
+        width:50%;
+        align-items:center;
+    }
+             @keyframes BlowUp {
+        0% {
+          transform: scale(1, 1);
+        }
 
-{% for hashtag in hashtag.all %} 
+        50% {
+          transform: scale(1.5, 1.5);
+        }
 
-    {{ hashtag.name }}<br>
+        100% {
+          transform: scale(1, 1);
+        }
+      }
+      .heart {
+      }
+      /* 하트 */
+      .heart:hover {
+        position: relative;
+        cursor:pointer;
+        animation: BlowUp 1.2s linear infinite;
+      }
+
+        }
+  </style>
+</head>
+<h1>해시태그 목록</h1>
+
+{% for hashtag in hashtag.all %}
+<div class="Set_Heart">
+  <span class="heart"> ❤️</span>
+  {{ hashtag.name }}
+</div>
 
 {% endfor %}
 

@@ -79,6 +79,7 @@
 
 
             <div class = "footer" style="margin-top:5%;">
+                <div class="clock"></div>
                 <div class = "footer-content">
                 <a href = "https://github.com/khj0426/KCMProject" target = "_blank" id = "github_link">
                 <img src = "{% static 'img/github.png' %}" style="margin-right:5px;">
@@ -132,6 +133,16 @@
                  document.querySelector('.but4').style.background = '#CA955C';
                  document.querySelector('.but5').style.background = '#CA955C';
             });
+            const clock = document.querySelector('.clock');
+function GetTime() {
+  const time = new Date();
+  const hour = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+  const seconds = time.getSeconds().toString().padStart(2, '0');
+  clock.innerHTML = hour + ':' + minutes + ':' + seconds;
+}
+
+setInterval(GetTime, 1000);
         </script>
         
 
