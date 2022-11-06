@@ -42,5 +42,5 @@ urlpatterns = [
     path('hashtag/', kcmapp.views.hashtag, name = 'hashtag'),
     path('hashtag_list/', kcmapp.views.hashtag_list, name = 'hashtag_list'),
     path('hashtag_add/', kcmapp.views.hashtag_add, name = 'hashtag_add'),
-
+    path('like/<str:id>/',kcmapp.views.likes,name = 'likes')
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

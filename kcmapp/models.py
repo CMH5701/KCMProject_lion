@@ -13,7 +13,8 @@ class Cashbook(models.Model):
     email = models.EmailField(max_length=100, blank=True)
     image = models.ImageField(upload_to  = 'images/' , blank = True)
     hashtags = models.ManyToManyField('kcmapp.Hashtag' , blank = True)
-    
+    post_like = models.ManyToManyField(User,related_name = 'like_users',blank = True)
+    like_count = models.PositiveIntegerField(default = 0);
     def __str__ (self) :
         return self.title
 
