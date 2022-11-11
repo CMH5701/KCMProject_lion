@@ -50,8 +50,12 @@ def write(request ,cashbook = None) :
 
 def read(request) :
     cashbooks = Cashbook.objects.order_by('-id').all() #id 1~#까지 순차적으로 게시글 출력
-    comment_form = CommentForm()
-    return render(request, 'read.html', {'cashbooks':cashbooks ,'comment_form': comment_form })
+    sort = request.GET.get('sort', '')
+    if sort == 'pub_date' : 
+        cashbooks = Cashbook.objects.all().order_by('-pub_date')
+    else : 
+        cashbooks = Cashbook.objects.all().order_by('-like_count')
+    return render(request, 'read.html', {'cashbooks':cashbooks , 'sort':sort })
 
 def detail(request,id) :
     cashbooks = get_object_or_404(Cashbook, id=id)

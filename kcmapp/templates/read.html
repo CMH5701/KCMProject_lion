@@ -38,11 +38,22 @@
             animation: BlowUp 1.2s linear infinite;
           }
     
-            }
+           
         </style>
 </head>
 <body>
     <h2>Read</h2>
+    <form method="GET" action="{% url 'read' %}">
+      
+      {% csrf_token %}
+          
+      <select name="sort" id="sort" >
+          <option value="pub_date" id="sort">최신순</option>
+          <option value="like_count" id="sort">좋아요순</option>
+      </select>
+      <button type="submit" value="">정렬</button>
+  
+</form>
     <form  method= "POST">
         
         {% for cashbooks in cashbooks.all %}
@@ -54,18 +65,15 @@
         {% if cashbooks.image %}
         <image src = "{{cashbooks.image.url}}" width = "250" height = "250" alt = image>  
         {% endif %}
-        <a href = "{% url 'likes' cashbooks.id %}">
-            <div class = "Set_Heart">
-                <strong>좋아요</strong>
-                <span class = "heart">
-                   ❤️</span>
-           </div>
-        </a>
+       
         {% endfor %}
         {% if form.user.profile.image %}
         <img src="{{ post.user.profile.image.url }}" width="25" alt="">
         {% endif %}
+
+        
         
     </form>
+    
 </body>
 </html>

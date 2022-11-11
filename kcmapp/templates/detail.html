@@ -10,6 +10,14 @@
     span{
       color:blue;
     }
+    .heart {
+    }
+    
+    .heart:hover {
+      position: relative;
+      cursor:pointer;
+      animation: BlowUp 1.2s linear infinite;
+    }
     </style>
 </head>
 <body>
@@ -58,7 +66,14 @@
   </form>
   {% endif %}
 
- 
+  <a href = "{% url 'likes' cashbooks.id %}" >
+    <div class = "Set_Heart">
+        <strong>좋아요</strong>
+        <span class = "heart">
+           ❤️</span>
+           :{{cashbooks.like_count}}
+   </div>
+</a>
     
 </body>
 </html>
