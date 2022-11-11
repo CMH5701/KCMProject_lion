@@ -1,149 +1,110 @@
 {% load static %}
 <html>
-    <head>
-        <link rel = "stylesheet" href = "{% static 'css/main.css' %}">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <nav class="header">
+      <span class="searchcomponent" style="color: #ff6f0f; font-weight: 800"
+        >😀이쁜사진 이카이브
+        <form method="POST" action="{% url 'hashtag' %}">
+          {% csrf_token %}
+          <input
+            class="searchbut"
+            type=""
+            name="search_button"
+            value="해시태그를 검색해보세요"
+          />
+        </form>
+      </span>
 
-    </head>
-        <body style="height:100vh;">
+      <ul>
+        {% if user.is_authenticated %}
+        <li>{{ user.username }}</li>
+        {% endif %}
+        <li><a href="{% url 'write' %}">글 작성</a></li>
+        <li><a href="{% url 'signup' %}">회원가입</a></li>
+        <li><a href="{% url 'hashtag_list' %}">해시태그목록</a></li>
+        <li><a href="{% url 'hashtag_add' %}">해시태그추가</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}">로그아웃</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">로그인</a></li>
+        {% endif%}
+      </ul>
+    </nav>
+    <div id = "toggle">
+      <i class = "indicator"></i>
+    </div>
 
-        <div class = "header">
-
-                <h1>😀꿀조합 레시피</h1>
-                <ul>
-                    <li>Food</li> <!--전체 목록-->
-                    <li>Fruit</li> <!--글 중 과일?에 대한 목록-->
-                    <li>Drink</li> <!--글 전체 중 음료수에 대한 목록-->
-                    <li>Write</li> <!--글 작성 페이지-->
-                    <li>Login></li> <!--로그인 페이지-->
-                    
-{% if user.is_authenticated %}
-<h3> {{ user.username }}님 환영합니다.</h3>
-<a href="{% url 'write' %}">글 쓰기</a>
-<a href="{% url 'logout' %}">로그아웃</a>
-<span> <a href="{% url 'people' user.username %}">{{user.username }}의 페이지</a></span>
-{% else %}
-<a href="{% url 'signup' %}">회원가입</a>
-<a href="{% url 'login' %}">로그인</a>
-{% endif %}
-<a href = "{% url 'hashtag_list'  %}">사용가능한 해시태그 목록</a>
-
-
-            </div>
-            <a href = "{% url 'hashtag_add'  %}">해시태그 추가</a>
-            <form method='POST' action="{% url 'hashtag' %}">
-                {% csrf_token %}
-                <input type="" name="search_button" value="검색">
-                </form>
-            <div class = "main" style = "overflow:hidden;position:absolute;margin-top:2%;width:100%;">
-
-                <div class = "main_content" style = "overflow:hidden">
-                     <div class = "inner">
-                        <img src = "{% static 'img/main_1.jpg' %}">
-                     </div>
-
-                     <div class = "inner">
-                        <img src = "{% static 'img/main_2.jpg' %}">
-                     </div>
-                     <div class = "inner">
-                        <img src = "{% static 'img/main_3.jpg' %}">
-                     </div>
-
-                    <div class = "inner">
-                        <img src = "{% static 'img/main_4.png' %}">
-                    </div>
-                     <div class = "inner">
-                        <img src = "{% static 'img/main_5.jpg' %}">
-                    </div>
-
-                </div>
-
-                <div class = "buttons">
-                    <button class = "but1">1</button>
-                    <span></span>
-                    <button class = "but2">2</button>
-                     <span></span>
-                    <button class = "but3">3</button>
-                    <button class = "but4">4</button>
-                    <button class = "but5">5</button>
-                    </div>
-            </div>
-
-         <div class="side_content">
-                    <a href="{% url 'read' %}">글 목록 </a>
-                    <!--<a href="{% url 'write' %}">글 작성하기</a>글 작성 페이지 로그인 상태에서만 가능 표시해도 상관은 x-->
-                    <a href= "#github_link">푸터</a>
-                </div>
-
-
-
-
-            <div class = "footer" style="margin-top:5%;">
-                <div class="clock"></div>
-                <div class = "footer-content">
-                <a href = "https://github.com/khj0426/KCMProject" target = "_blank" id = "github_link">
-                <img src = "{% static 'img/github.png' %}" style="margin-right:5px;">
-                </a>
-                  멋쟁이사자처럼 10기 최명환 & 김효중
-            </div>
-            </div>
+    <span class="clock"></span>
+    <div class = "wrapper">
+      <nav class = "lil-nav">
+        <a href = "#">
+          <img src = "{% static 'img/main_1.webp' %}">
+        </a>
+        <a href = "#">
+          <img src = "{% static 'img/main_2.png' %}">
+        </a>
+        <a href = "#">
+          <img src = "{% static 'img/main_3.jpg' %}">
+        </a>
+        <a href = "#">
+          <img src = "{% static 'img/main_4.jpg' %}">
+        </a>
+        <a href = "#">
+          <img src = "{% static 'img/main_5.jpg' %}">
+        </a>
+      </nav>
+      <div class = "gallery">
+        <img class = "gallery_img" id = "image_1" src = "{% static 'img/main_1.webp' %}">
+        <img class = "gallery_img" id = "image_2" src = "{% static 'img/main_2.png' %}">
+        <img class = "gallery_img" id = "image_3" src = "{% static 'img/main_3.jpg' %}">
+        <img class = "gallery_img" id = "image_4" src = "{% static 'img/main_4.jpg' %}">
+        <img class = "gallery_img" id = "image_5" src = "{% static 'img/main_5.jpg' %}">
         
-        </body>
-        <script>
-         document.querySelector('.but5').addEventListener('click',function(){
-                document.querySelector('.main_content').style.transform = 'translate(-320vw)';
-                document.querySelector('.but5').style.background = '#EDDFB3';
-                document.querySelector('.but4').style.background = '#CA955C';
-                 document.querySelector('.but3').style.background = '#CA955C';
-                 document.querySelector('.but1').style.background = '#CA955C';
-                 document.querySelector('.but2').style.background = '#CA955C';
-            });
-         document.querySelector('.but4').addEventListener('click',function(){
-                document.querySelector('.main_content').style.transform = 'translate(-240vw)';
-                document.querySelector('.but4').style.background = '#EDDFB3';
-                 document.querySelector('.but3').style.background = '#CA955C';
-                 document.querySelector('.but1').style.background = '#CA955C';
-                 document.querySelector('.but2').style.background = '#CA955C';
-                 document.querySelector('.but5').style.background = '#CA955C';
-            });
+      </div>
+    
+  
+    </div>  
 
-            document.querySelector('.but2').addEventListener('click',function(){
-                document.querySelector('.main_content').style.transform = 'translate(-80vw)';
-                document.querySelector('.but2').style.background = '#EDDFB3';
-                 document.querySelector('.but3').style.background = '#CA955C';
-                 document.querySelector('.but1').style.background = '#CA955C';
-                  document.querySelector('.but4').style.background = '#CA955C';
-                  document.querySelector('.but5').style.background = '#CA955C';
-            });
+      
 
-            document.querySelector('.but3').addEventListener('click',function(){
-                document.querySelector('.main_content').style.transform = 'translate(-160vw)';
-                document.querySelector('.but3').style.background = '#EDDFB3';
-                 document.querySelector('.but2').style.background = '#CA955C';
-                 document.querySelector('.but1').style.background = '#CA955C';
-                 document.querySelector('.but4').style.background = '#CA955C';
-                 document.querySelector('.but5').style.background = '#CA955C';
-            });
+    </div>
 
-            document.querySelector('.but1').addEventListener('click',function(){
-                document.querySelector('.main_content').style.transform = 'translate(0vw)';
-                 document.querySelector('.but1').style.background = '#EDDFB3';
-                 document.querySelector('.but3').style.background = '#CA955C';
-                 document.querySelector('.but2').style.background = '#CA955C';
-                 document.querySelector('.but4').style.background = '#CA955C';
-                 document.querySelector('.but5').style.background = '#CA955C';
-            });
-            const clock = document.querySelector('.clock');
-function GetTime() {
-  const time = new Date();
-  const hour = time.getHours().toString().padStart(2, '0');
-  const minutes = time.getMinutes().toString().padStart(2, '0');
-  const seconds = time.getSeconds().toString().padStart(2, '0');
-  clock.innerHTML = hour + ':' + minutes + ':' + seconds;
-}
+    <div class="footer" style="margin-top: 5%">
+        <a
+          href="https://github.com/khj0426/KCMProject"
+          target="_blank"
+          id="github_link"
+        >
+          <img src="{% static 'img/github.png' %}" style="margin-right: 5px" />
+        </a>
+        멋쟁이사자처럼 10기 최명환 & 김효중
+     
+    </div>
+  </body>
+  <script>
+  const body = document.querySelector('body');
+  const gallery = document.querySelector('.gallery');
+  const toggle = document.getElementById('toggle');
+  const head = document.querySelector('.header');
+   toggle.onclick =function(){
+    toggle.classList.toggle('active');
+    body.classList.toggle('active');
+    gallery.classList.toggle('active');
+    head.classList.toggle('active');
+   }
+    const clock = document.querySelector('.clock');
+    function GetTime() {
+      const time = new Date();
+      const hour = time.getHours().toString().padStart(2, '0');
+      const minutes = time.getMinutes().toString().padStart(2, '0');
+      const seconds = time.getSeconds().toString().padStart(2, '0');
+      clock.innerHTML = hour + ':' + minutes + ':' + seconds;
+    }
 
-setInterval(GetTime, 1000);
-        </script>
-        
-
+    setInterval(GetTime, 1000);
+  </script>
 </html>
