@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>상품 구매하기</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    {% comment %} 토스페이먼츠 JavsScript SDK {% endcomment %}
+    <script src="https://js.tosspayments.com/v1"></script>
+</head>
+<body>
+          <h2>
+            Tosspayments 결제 test
+          </h2>
+          <div>
+            <label class="form-label" for="paymentType">결제수단</label>
+            <select id="paymentType">
+              <option value="카드" selected>카드</option>
+              <option value="계좌이체">계좌이체</option>
+              <option value="가상계좌">가상계좌</option>
+              <option value="휴대폰">휴대폰</option>
+              <option value="문화상품권">문화상품권</option>
+              <option value="도서문화상품권">도서문화상품권</option>
+              <option value="게임문화상품권">게임문화상품권</option>
+              <option value="토스페이">토스페이</option>
+            </select>
+  
+            <div>
+              <label for="amount">주문번호 <span>(orderId) </span> </label>
+              <input id="orderId" type="text">
+            </div>
+  
+            <div>
+              <label for="amount">물품명 <span>(orderName) </span></label>
+              <input id="orderName"  type="text">
+            </div>
+  
+            <div>
+              <label for="amount">금액 <span>(amount)</label>
+              <input id="amount"  type="text">
+            </div>
+  
+            <div>
+              <label class="form-label" for="amount">구매자명 <span>(customerName)</span></label>
+              <input id="customerName" type="text">
+            </div>
+  
+            <div>
+              <button id="requestPayment" type="button">결제하기</button>
+            </div>
+          </div> <!-- #requestPayment_form -->
+
+  </body>
+  <script>
+    {% comment %} =================================  API KEY 세팅 ================================== {% endcomment %}
+    let clientKey = ''; //  *본인꺼 입력하기* API Key 입력해주기
+    let tossPayments = TossPayments(clientKey);
+  
+  
+    {% comment %}> =================================  결제데이터 ================================== {% endcomment %}
+    let paymentData = ["공통", "카드", "가상계좌", "계좌이체", "휴대폰", "문화상품권", "도서상품권", "게임문화상품권", "토스페이"];
+    let path = "/";
+    let successUrl = window.location.origin + path + "success";
+    let failUrl = window.location.origin + path + "fail";
+  
+    paymentData["공통"] = {
+      "amount": "", 
+      "orderId": "",
+      "orderName": "",
+      "customerName": "", 
+      "customerEmail": null,
+      "customerMobilePhone": null,
+      "successUrl": successUrl, 
+      "failUrl": failUrl,
+      "windowTarget": "iframe",
+      "taxFreeAmount": null,
+      "cultureExpense": false
+    }
+  
+    paymentData["카드"] = {
+      "cardCompany": null,
+      "cardInstallmentPlan": null,
+      "maxCardInstallmentPlan": null,
+      "freeInstallmentPlans": null,
+      "useCardPoint": false,
+      "useAppCardOnly": false,
+      "useInternationalCardOnly": false,
+      "flowMode": "DEFAULT",
+      "easyPay": null,
+      "discountCode": null,
+      "appScheme": null
+    }
+  
+    paymentData["가상계좌"] = {
+      "validHours": 72,
+      "cashReceipt": {
+        "type": "소득공제"
+      },
+      "useEscrow": false,
+      "escrowProducts": null,
+      "currency": "KRW"
+    }
+  
+    paymentData["계좌이체"] = {
+      "cashReceipt": {
+        "type": "소득공제"
+      },
+      "useEscrow": false,
+      "escrowProducts": null
+    }
+  
+    paymentData["휴대폰"] = {
+      "mobileCarrier": null // 테스트 환경에서 동작은 x
+    }
+  
+  
+    {% comment %} ================== '결제' Btn Event ================== {% endcomment %}
+    document.getElementById("requestPayment").addEventListener('click', function () {
+      let paymentType = document.getElementById("paymentType").value;
+      let requestJson = initPaymentsData("공통",paymentType);
+      
+      tossPayments.requestPayment(paymentType, requestJson)
+        .catch(function (error) {
+          // 응답 처리 
+          if (error.code === 'USER_CANCEL') {
+            // 결제창을 닫았을 때 에러 처리
+          } else if (error.code === 'INVALID_CARD_COMPANY') {
+            // 유효하지 않은 카드 코드에 대한 에러 처리
+          }
+        })
+    })
+  
+     {% comment %} ================== 페이지 로딩시 실행 ==================  {% endcomment %}
+    document.addEventListener("DOMContentLoaded", function () {
+      makeOrderId("TossPaymentsTest"); 
+    });
+  
+     {% comment %} ================= 주문번호(OrderID) 자동생성 ===================  {% endcomment %}
+    function makeOrderId (prefix){
+      let x = Math.floor(Math.random() * 100000000);
+      document.getElementById("orderId").value = prefix + x;
+    }
+  
+     {% comment %} ============= [공통]에서 따로 설정해준 값 + [결제수단별] JSON DATA 합치기 ================{% endcomment %}
+    function initPaymentsData(general, paymentType){
+      paymentData[general].amount = document.getElementById("amount").value;
+      paymentData[general].orderId = document.getElementById("orderId").value;
+      paymentData[general].orderName = document.getElementById("orderName").value;
+      paymentData[general].customerName = document.getElementById("customerName").value;
+      
+      return Object.assign(paymentData[general], paymentData[paymentType]);
+    }
+  
+  </script>
+
+</html>

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.urls import path
-import kcmapp.views , account.views
+import kcmapp.views , account.views , payment.views
 from kcmproject.settings import MEDIA_ROOT
 from django.conf import settings
 from django.conf.urls.static import static
@@ -42,5 +42,9 @@ urlpatterns = [
     path('hashtag/', kcmapp.views.hashtag, name = 'hashtag'),
     path('hashtag_list/', kcmapp.views.hashtag_list, name = 'hashtag_list'),
     path('hashtag_add/', kcmapp.views.hashtag_add, name = 'hashtag_add'),
-    path('like/<str:id>/',kcmapp.views.likes,name = 'likes')
+    path('like/<str:id>/',kcmapp.views.likes,name = 'likes'),
+    path('payment',payment.views.payment ,name = 'payment'),
+    path('window',payment.views.window),
+    path('success', payment.views.success),
+    path('fail', payment.views.fail),
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

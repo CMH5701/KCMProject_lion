@@ -13,7 +13,7 @@ def main(request):
     cashbook = Cashbook.objects.all()
     return render(request , 'main.html',{'cashbook':cashbook})
 
-@login_required
+
 def write(request ,cashbook = None) :
     if not request.user.is_authenticated:
         return redirect('main')
