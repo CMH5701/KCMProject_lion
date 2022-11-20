@@ -37,6 +37,7 @@
     <div id = "toggle">
       <i class = "indicator"></i>
     </div>
+    <img src = "{% static 'img/loading.gif' %}" class = "loadingImg">
 
     <span class="clock"></span>
     <div class = "wrapper">
@@ -104,6 +105,12 @@
       const seconds = time.getSeconds().toString().padStart(2, '0');
       clock.innerHTML = hour + ':' + minutes + ':' + seconds;
     }
+    function HiddenImg(){
+      const loadingimg = document.querySelector('.loadingImg');
+      loadingimg.style.display = 'none';
+    }
+
+    setTimeout(HiddenImg,3000);
 
     setInterval(GetTime, 1000);
   </script>
